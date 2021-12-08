@@ -1,0 +1,28 @@
+[version]
+* tensorflow-gpu: 2.2.0
+* python: 3.6
+
+========================================================================
+1) convert.py (L14~L15): keras -> tensorflow.keras
+   convert.py (L17): keras -> tensorflow.python.keras
+   convert.py (L19~L21): keras -> tensorflow.keras
+   convert.py (L22): keras -> tensorflow.python.keras
+
+2) yolo.py (L11~L13): keras -> tensorflow.keras
+   yolo3/model.py (L7, L9): keras -> tensorflow.keras
+   yolo3/model.py (L10): keras -> tensorflow.python.keras
+   yolo3/model.py (L11, L13~L14): keras -> tensorflow.keras
+   
+3) yolo.py (L11): tensorflow.keras -> tensorflow.compat.v1.keras
+
+4) 학습 코드: import os; os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
+
+5) 학습 코드: batch size: 32 -> 10
+   [ERROR] OOM when allocating tensor with shape[32,209,209,64]
+   
+   내용 확인을 위해: model.compile(..., options = run_opts) -> 현재 사라진 옵션
+   
+   (1) L72, L91: batch size 32 -> 16 -> 8 조정중
+   해결: batch size가 8일 때, 동작함
+   
+========================================================================================================

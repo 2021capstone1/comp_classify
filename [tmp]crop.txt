@@ -1,0 +1,23 @@
+            import cv2
+            
+            # CROP 작업 시작
+            img_name = image.filename.split('/')[-1].split('.')[0]
+            count = 0
+            
+            while(1):
+                if os.path.isfile(f'./crop/{img_name}_{count}.jpg'):
+                    count += 1
+                else:
+                    print('count:',count)
+                    break
+            
+            img = cv2.imread(image.filename)
+            print(bottom, top, left, right)
+            crop_img = img[top:bottom, left:right]
+            crop_img_name = f'crop/{img_name}_{str(count)}.jpg'
+            cv2.imwrite(crop_img_name,crop_img)
+            print('end')
+            # CROP 작업 끝
+            
+================================================================================================
+* yolo.py L149 이후 추가 예정

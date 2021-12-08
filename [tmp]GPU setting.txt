@@ -1,0 +1,18 @@
+# GPU 설정
+참고 블로그: https://artiiicy.tistory.com/61
+
+# "~.ipynb" 와 같이 python script 내에서 돌리는 경우에는 다음과 같이 os.environ[ ] code를 활용하여 environment를 설정하여 실행할 수 있다.
+
+* 여러개의 GPU를 할당하고 싶은 경우에는 다음과 같이 comma를 이용
+> os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"  # Arrange GPU devices starting from 0
+> os.environ["CUDA_VISIBLE_DEVICES"]= "2,3"  # Set the GPUs 2 and 3 to use
+
+
+========================================================================================================
+# GPU가 할당되었는지 확인하기
+
+> device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+> print('Device:', device)
+> print('Current cuda device:', torch.cuda.current_device())
+> print('Count of using GPUs:', torch.cuda.device_count())
